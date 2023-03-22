@@ -1,66 +1,31 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Random Cuisine Generator</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  </head>
-  <body>
-    <h1>Random Cuisine Generator</h1>
-    <button onclick="generateList()">Generate List</button>
-    <ol id="cuisineList"></ol>
-    
-    <script>
-      function generateList() {
-        var cuisines = [
-          "Thai Basil Chicken",
-          "Sushi",
-          "Kung Pao Chicken",
-          "Pho",
-          "Pad Thai",
-          "Ramen",
-          "General Tso's Chicken",
-          "Banh Mi",
-          "Dumplings",
-          "Green Curry",
-          "Tempura",
-          "Mapo Tofu",
-          "Bun Cha",
-          "Yakitori",
-          "Hot Pot",
-          "Tom Yum Soup",
-          "Soba Noodles",
-          "Jianbing",
-          "Beef Noodle Soup",
-          "Shumai",
-          "Stir Fry",
-          "Banh Xeo",
-          "Gyoza",
-          "Congee",
-          "Spring Rolls",
-          "Pho Bo",
-          "Pad See Ew",
-          "Bibimbap",
-          "Tteokbokki",
-          "Kimchi",
-        ];
-        var selectedCuisines = [];
-        while (selectedCuisines.length < 30) {
-          var cuisine = cuisines[Math.floor(Math.random() * cuisines.length)];
-          if (selectedCuisines.indexOf(cuisine) === -1) {
-            selectedCuisines.push(cuisine);
-          }
-        }
-        selectedCuisines.sort(); // Sort cuisines alphabetically
-        selectedCuisines = selectedCuisines.slice(0, 5); // Only show top 5
-        var list = document.getElementById("cuisineList");
-        list.innerHTML = "";
-        selectedCuisines.forEach(function(cuisine, index) {
-          var li = document.createElement("li");
-          li.textContent = (index + 1) + ". " + cuisine;
-          list.appendChild(li);
-        });
-      }
-    </script>
-  </body>
+<head>
+	<title>Random Meal Generator</title>
+	<script>
+		function generateMeals() {
+			fetch("meals.txt")
+			.then(response => response.text())
+			.then(text => {
+				const meals = text.split("\n").filter(line => line.trim() !== "");
+				const numMeals = 5;
+				const mealList = document.getElementById("mealList");
+				mealList.innerHTML = "";
+				for (let i = 0; i < numMeals; i++) {
+					const index = Math.floor(Math.random() * meals.length);
+					const meal = meals[index];
+					const listItem = document.createElement("li");
+					listItem.textContent = meal;
+					mealList.appendChild(listItem);
+				}
+			})
+			.catch(error => console.error(error));
+		}
+	</script>
+</head>
+<body>
+	<h1>Random Meal Generator</h1>
+	<button onclick="generateMeals()">Generate Meals</button>
+	<ul id="mealList"></ul>
+</body>
 </html>
