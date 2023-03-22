@@ -2,10 +2,9 @@
 <html>
 <head>
 	<title>Random Meal Generator</title>
-	<script>console.log("Current directory:", window.location.pathname.split('/').slice(0, -1).join('/'));</script>
 	<script>
 		function generateMeals() {
-			fetch("meals.txt")
+			fetch("https://github.com/jiratpasuksmit/THAI_FOOD_WHEEL/blob/main/meals.text")
 			.then(response => response.text())
 			.then(text => {
 				const meals = text.split("\n").filter(line => line.trim() !== "");
